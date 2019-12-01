@@ -1,69 +1,88 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import React, {Component} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-class Barang extends Component {
+class Barang extends Component{
   constructor(props){
     super(props);
     this.state = {
-      jumlah:0,
+      jumlah: 0
     }
   }
 
-  handleTambah = () => {
-    this.setState({
-      jumlah : this.state.jumlah + 1
-    });
-  };
-  handleKurang = () => {
-    if (this.state.jumlah > 0) {
-      this.setState({
-        jumlah : this.state.jumlah - 1
-      });
-    } else {
-      Alert.alert("Jumlah tidak boleh Kurang dari 0")
+  tambahJumlah = () => {
+    this.setState({jumlah: this.state.jumlah + 1});
+  }
+
+  kurangJumlah = () => {
+    if(this.state.jumlah > 0){
+      this.setState({jumlah: this.state.jumlah - 1});
+    }else{
+      alert("Jumlah Tidak Boleh Kurang Dari 0");
     }
-  };
+  }
 
   render(){
     return(
-      <View style={{flex:3, backgroundColor:"white"}}>
-
-      <View style={{flex:2, flexDirection:"row"}}>
-      <Text style={{flex:3}}></Text>
-        <Text style={{flex:1}}>Jumlah : {this.state.jumlah}</Text>
-        </View>
-
-          <Text style={{flex:2, textAlign:"center"}}>Silahkan Tekan Tombol Di Bawah</Text>
-
-        <View style={{flex:1, flexDirection:"row"}}>
-
-        <Text style={{flex:1}}></Text>
-
-        <TouchableOpacity style={{flex:2, backgroundColor:"red", width:50, height:35}} onPress={this.handleTambah}>
-          <View style={{alignItems:"center", justifyContent:"center"}}>
-          <Text style={{color:"white", fontSize:30}}>+</Text>
-            </View>
-        </TouchableOpacity>
-
-          <Text style={{flex:1}}></Text>
-
-          <TouchableOpacity style={{flex:2, backgroundColor:"green", width:50, height:35}} onPress={this.handleKurang}>
-            <View style={{alignItems:"center", justifyContent:"center"}}>
-            <Text style={{color:"white", fontSize:30}}>-</Text>
-              </View>
+      <View style={styles.container}>
+        <Text style={styles.lblJumlah}>Jumlah : {this.state.jumlah}</Text>
+        <Text style={styles.label}>Silahkan Tekan Tombol Di Bawah</Text>
+        <View style={styles.containerBtn}>
+          <TouchableOpacity style={styles.tambahan} onPress={this.tambahJumlah}>
+            <Text style={styles.textBtn}> + </Text>
           </TouchableOpacity>
-
-          <Text style={{flex:1}}></Text>
-
-            </View>
-            <View style={{flex:20, flexDirection:"row", paddingTop:50}}>
-            <Text style={{flex:1}}></Text>
-              <Text style={{flex:1, color:"blue", fontSize:50, textAlign:"center"}}>{this.state.jumlah}</Text>
-            <Text style={{flex:1}}></Text>
-            </View>
-          </View>
+          <TouchableOpacity style={styles.kurangan} onPress={this.kurangJumlah}>
+            <Text style={styles.textBtn}> - </Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.jumlah}>{this.state.jumlah}</Text>
+      </View>
     )
   }
 }
-//Abdi
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    backgroundColor: '#fff',
+    padding: 20
+  },
+  containerBtn: {
+    flexDirection: 'row',
+  },
+  tambahan: {
+    backgroundColor: 'green',
+    flex: 1,
+    textAlign: 'center',
+    width: 20,
+    height: 30,
+    padding: 5,
+    margin: 20
+  },
+  kurangan: {
+    backgroundColor: 'red',
+    flex: 1,
+    width: 20,
+    height: 30,
+    padding: 5,
+    margin: 20
+  },
+  jumlah: {
+    fontSize: 50,
+    color: 'blue',
+    textAlign: 'center'
+  },
+  lblJumlah: {
+    textAlign: 'right'
+  },
+  label: {
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  textBtn: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#fff'
+  }
+})
+
 export default Barang;
